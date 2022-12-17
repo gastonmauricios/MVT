@@ -1,8 +1,5 @@
 from django.db import models
 
-# Create your models here.
-from django.db import models
-
 
 # Create your models here. # ESTOS SON LOS MODELOS DE TABLAS DE BASE DE DATOS, los objetos se crean en un views
 class Curso(models.Model): # es una herencia objeto Clase curso tiene un models, campos para llenar cosas.
