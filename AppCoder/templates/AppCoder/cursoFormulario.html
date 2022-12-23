@@ -1,0 +1,28 @@
+{% extends 'AppCoder/padre.html' %}
+
+{% load static %}
+
+{% block titulo %}
+<h1 class="mb-5">FORMULARIO DEL CURSO</h1>
+{% endblock %}
+
+{% block contenido_que_cambia %}
+
+<form action="" method='POST'>
+    
+    <p>Curso:<input type="text" name="nombre"></p>
+    <p>comision:<input type="number" name="comision"></p>
+
+    <input type="submit" value="Guardar Curso">
+
+
+</form>
+
+{% endblock %}
+
+{% block subtitulo %}
+
+<h3>CURSOS</h3>
+<p>python</p>
+
+{% endblock %}

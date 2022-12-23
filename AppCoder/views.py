@@ -28,3 +28,6 @@ def entregables(request): #las views reciben request
 
 def inicio(request): #las views reciben request
     return render(request, "AppCoder/inicio.html")
+
+def cursoFormulario(request): # formulario
+    return render (request, 'AppCoder/cursoFormulario.html')
