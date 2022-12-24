@@ -89,11 +89,12 @@ def busquedaComision(request):
     return render(request, 'AppCoder/busquedaComision.html')
 
 def buscar(request):
-    comision= request.GET('comision')
     
+    comision= request.GET['comision']
     if comision!="":
-        cursos= Curso.objects.filter(comision=comision)
-        return render(request, 'AppCoder/resultadoBusqueda.html', {'cursos': cursos})
+        cursos=Curso.objects.filter(comision=comision)
+        return render(request, 'AppCoder/resultadosBusqueda.html', {'cursos': cursos})
+    
     else:
-        return render(request, 'AppCoder/busquedaComision.html', {'mensaje': 'ingrese comision'})
+        return render(request, 'AppCoder/busquedaComision.html', {'mensaje': 'che ingresa una comision para buscar!'})
 

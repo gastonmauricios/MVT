@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block titulo %}
-<h1 class="mb-5">Resultado de la busqueda de curso</h1>
+<h1 class="mb-5">Resultado de la busqueda del curso</h1>
 {% endblock %}
 
 {% block contenido_que_cambia %}
@@ -11,7 +11,8 @@
 <h2>LISTADO DE CURSO</h2>
 
 {% for curso in cursos %}
-<h3>{{ curso.nombre }}- {{ curso.comision }}</h3>
+
+<h3>{{ curso.nombre }} - {{ curso.comision }}</h3>
 
 {% endfor %}
 
