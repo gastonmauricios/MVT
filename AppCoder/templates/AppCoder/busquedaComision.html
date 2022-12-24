@@ -1,0 +1,30 @@
+{% extends 'AppCoder/padre.html' %}
+
+{% load static %}
+
+{% block titulo %}
+<h1 class="mb-5">BUSQUEDA DE COMISION</h1>
+{% endblock %}
+
+{% block contenido_que_cambia %}
+
+<h3>{{ mensaje }}</h3>
+
+<form action="{% url 'buscar' %}" method="GET">
+    
+    <input type='number' name='comision' id='comision' placeholder='INSERTE COMISION'>    
+    
+    <input type='submit' value='buscar comsion'>
+    
+    
+
+</form>
+
+{% endblock %}
+
+{% block subtitulo %}
+
+<h3>CURSOS</h3>
+<p>python</p>
+
+{% endblock %}
