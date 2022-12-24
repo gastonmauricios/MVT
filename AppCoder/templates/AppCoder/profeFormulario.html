@@ -3,20 +3,20 @@
 {% load static %}
 
 {% block titulo %}
-<h1 class="mb-5">FORMULARIO DEL CURSO</h1>
+<h1 class="mb-5">FORMULARIO DE PROFESORES</h1>
 {% endblock %}
 
 {% block contenido_que_cambia %}
 
 <h3>{{ mensaje }}</h3>
 
-<form action="{% url 'cursoFormulario' %}" method='POST'> {% csrf_token %}
+<form action="{% url 'profeFormulario' %}" method='POST'> {% csrf_token %}
     
     <table>
         {{ form.as_table }}
     </table>
     
-    <input type="submit" value="Guardar Curso">
+    <input type="submit" value="Guardar Profesores">
 
 
 </form>
@@ -25,7 +25,7 @@
 
 {% block subtitulo %}
 
-<h3>CURSOS</h3>
-<p>python</p>
+<h3>PROFESORES</h3>
+<p>comision</p>
 
 {% endblock %}
