@@ -8,6 +8,8 @@
 
 {% block contenido_que_cambia %}
 
+{% if cursos %}
+
 <h2>LISTADO DE CURSO</h2>
 
 {% for curso in cursos %}
@@ -15,6 +17,12 @@
 <h3>{{ curso.nombre }} - {{ curso.comision }}</h3>
 
 {% endfor %}
+
+{% else %}
+
+<H2>NO HAY CURSOS</H2>
+
+{% endif %}
 
 
 

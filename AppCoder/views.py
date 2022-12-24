@@ -92,7 +92,7 @@ def buscar(request):
     
     comision= request.GET['comision']
     if comision!="":
-        cursos=Curso.objects.filter(comision=comision)
+        cursos=Curso.objects.filter(comision__icontains=comision)
         return render(request, 'AppCoder/resultadosBusqueda.html', {'cursos': cursos})
     
     else:
