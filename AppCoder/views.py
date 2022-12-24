@@ -67,7 +67,8 @@ def cursoFormulario(request):
 def profeFormulario(request):
     if request.method=='POST':
         form= ProfeForm(request.POST)
-                     
+        
+                
         if form.is_valid():
             informacion=form.cleaned_data #convierte la info en modo formulario a un diccionario
             nombre= informacion ['nombre']
@@ -76,15 +77,13 @@ def profeFormulario(request):
             profesion=informacion ['profesion']
             profe=Profesor(nombre=nombre, apellido=apellido, email=email, profesion=profesion)
             profe.save()
-            return render(request, 'AppCoder/inicio.html',{'mensaje': 'Profesor se guardo correctamente'})
+            return render(request, 'AppCoder/inicio.html',{'mensaje': 'ok el Profe se guardo correctamente'})
+
         else:
-            return render(request, 'AppCoder/profeFormulario.html',{'form': form, 'mensaje': 'info NO valida'})
-
-
-        
+            return render(request, 'AppCoder/ProfeFormulario.html',{'form': form, 'mensaje': 'info NO valida'})
     else:
-        formulario=ProfeForm()
-        return render(request, 'AppCoder/profeFormulario.html')
+        formulario=ProfeForm
+        return render(request, 'AppCoder/ProfeFormulario.html',{'form': formulario})
 
 
 

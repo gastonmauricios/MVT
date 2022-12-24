@@ -21,7 +21,7 @@ class Profesor(models.Model): # es una herencia objeto
     nombre=models.CharField(max_length=50)
     apellido=models.CharField(max_length=50)
     email=models.EmailField()
-    profesion=models.IntegerField(50)
+    profesion=models.CharField(max_length=50)
        
 class Entregable(models.Model): # es una herencia objeto
     
