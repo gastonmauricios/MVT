@@ -1,8 +1,10 @@
 from django.shortcuts import render
-from .models import Curso, Profesor
+from .models import Curso, Profesor, Estudiante
 from django.http import HttpResponse
+from django.urls import reverse_lazy
 
 from AppCoder.forms import CursoForm, ProfeForm
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DetailView, DeleteView
 # Create your views here
 
 def curso(request): #las views reciben request
@@ -77,7 +79,8 @@ def profeFormulario(request):
             profesion=informacion ['profesion']
             profe=Profesor(nombre=nombre, apellido=apellido, email=email, profesion=profesion)
             profe.save()
-            return render(request, 'AppCoder/inicio.html',{'mensaje': 'ok el Profe se guardo correctamente'})
+            profesores=Profesor.objects.all()
+            return render(request, 'AppCoder/Profesores.html' ,{'profesores': profesores, 'mensaje': 'ok el Profe se guardo correctamente'})
 
         else:
             return render(request, 'AppCoder/ProfeFormulario.html',{'form': form, 'mensaje': 'info NO valida'})
@@ -98,3 +101,61 @@ def buscar(request):
     else:
         return render(request, 'AppCoder/busquedaComision.html', {'mensaje': 'che ingresa una comision para buscar!'})
 
+def leerProfesores(request):
+
+    profesores=Profesor.objects.all() # lista de todos los profesores
+    return render(request, 'AppCoder/Profesores.html', {'profesores': profesores})
+
+def eliminarProfesor(request, id):
+    profesor=Profesor.objects.get(id=id)
+    print(profesor)
+    profesor.delete()
+    profesores=Profesor.objects.all()
+    return render (request, 'AppCoder/Profesores.html', {'profesores': profesores, 'mensaje': 'profesor eliminado correctamente' })
+
+def editarProfesor(request, id):
+    profesor=Profesor.objects.get(id=id)
+    if request.method=='POST':
+        form=ProfeForm(request.POST)
+        if form.is_valid():
+            info=form.cleaned_data
+            profesor.nombre=info['nombre']
+            profesor.apellido=info['apellido']
+            profesor.email=info['email']
+            profesor.profesion=info['profesion'] #piso los datos con nuevos datos
+            profesor.save()
+            profesores=Profesor.objects.all()
+            return render (request, 'AppCoder/Profesores.html', {'profesores': profesores, 'mensaje': 'profesor editado correctamente' })
+        pass
+    else:
+        formulario= ProfeForm(initial={'nombre': profesor.nombre, 'apellido': profesor.apellido, 'email': profesor.email, 'profesion': profesor.profesion})
+        return render(request, 'AppCoder/editarProfesor.html', {'form': formulario, 'profesor': profesor})
+
+# VISTAS BASADAS EN CLASES
+
+class EstudianteList(ListView):
+    model= Estudiante
+    template_name= 'AppCoder/estudiantes.html'
+
+class EstudianteCreacion(CreateView):
+    model= Estudiante
+    success_url= reverse_lazy('estudiante_list') # re-direcciona es de django
+    fields=['nombre', 'apellido','email']
+
+
+class EstudianteUpdate(UpdateView): #  vista usada para editar
+    model= Estudiante
+    success_url= reverse_lazy('estudiante_list') # re-direcciona es de django
+    fields=['nombre', 'apellido','email']
+
+
+
+
+class EstudianteDetalle(DetailView): # vista usada para mostrar datos
+    model=Estudiante
+    template_name= 'AppCoder/estudiante_detalle.html'
+
+class EstudianteDelete(DeleteView): # vista usada para eleiminar
+    model=Estudiante
+    success_url= reverse_lazy('estudiante_list')
+   

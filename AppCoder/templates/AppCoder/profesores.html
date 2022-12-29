@@ -4,17 +4,25 @@
 {% load static %}
 
 {% block titulo %}
-<h1 class="mb-5">PROFESORES</h1>
+<h1 class="mb-5">LISTADO DE PROFESORES</h1>
 {% endblock %}
 
 {% block contenido_que_cambia %}
-<h1>PROFESORES</h1>
 
-{% endblock %}
+<ul>
+    <h1>LISTADO DE PROFESORES</h1>
+    {% for profesor in profesores %}
+    <li>{{ profesor.nombre }} {{ profesor.apellido }} - {{ profesor.profesion }}</li>
+    
+    <a class="btn btn-danger" href="{% url 'eliminarProfesor' profesor.id %}">Eliminar </a>
+    <a class="btn btn-success" href="{% url 'editarProfesor' profesor.id %}">Editar</a>
+    {% endfor %}
+    
+</ul>
 
-{% block subtitulo %}
 
-<h3>correccion en 24hs</h3>
-<p>seguimiento personal 100x100</p>
+
+<h2>{{ mensaje }}</h2>
+<a class="btn btn-primary" href="{% url 'profeFormulario' %}">Agregar Profesor</a>
 
 {% endblock %}
