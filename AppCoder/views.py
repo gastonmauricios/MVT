@@ -2,8 +2,12 @@ from django.shortcuts import render
 from .models import Curso, Profesor, Estudiante
 from django.http import HttpResponse
 from django.urls import reverse_lazy
+from django.contrib.auth.forms import UserCreationForm , AuthenticationForm
+from django.contrib.auth import login, authenticate
 
-from AppCoder.forms import CursoForm, ProfeForm
+
+
+from AppCoder.forms import CursoForm, ProfeForm, RegistroUsuarioForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DetailView, DeleteView
 # Create your views here
 
@@ -158,4 +162,53 @@ class EstudianteDetalle(DetailView): # vista usada para mostrar datos
 class EstudianteDelete(DeleteView): # vista usada para eleiminar
     model=Estudiante
     success_url= reverse_lazy('estudiante_list')
-   
+
+#vista de registro usuario!!!!
+
+
+def register(request):
+    if request.method=='POST':
+        form=RegistroUsuarioForm(request.POST)
+        if form.is_valid():
+            username=form.cleaned_data.get('username')
+            form.save() #guardo en la base de dato el objeto que trae formulario
+            
+            return render(request, 'AppCoder/inicio.html',  { 'mensaje': f'usuario {username} creado correctamente' })
+        else:
+             return render(request, 'AppCoder/register.html',  {'form': form, 'mensaje': ' error al crear usuario' })
+
+    
+
+
+    else:
+        form=RegistroUsuarioForm()
+        return render(request, 'AppCoder/register.html', {'form': form})
+
+
+def login_request(request):
+    if request.method=='POST':
+        pass
+    else:
+        form=AuthenticationForm()
+        return render(request, 'AppCoder/login.html', {'form': form})
+
+def login_request(request):
+    if request.method=='POST':
+        form=AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            info=form.cleaned_data
+            usu=info['username']
+            clave=info['password']
+            usuario=authenticate(username=usu, password=clave) #verifica si el e usuario existe
+            if usuario is not None:
+                login(request, usuario)
+                return render(request, 'AppCoder/inicio.html',{'mensaje':f'Usuario  {usu} logueado correcatamente'} )
+            else:
+                return render(request, 'AppCoder/login.html',{'form':form ,'mensaje': 'Usuario o contraseña  incorrecata'} )
+        else:
+            return render(request, 'AppCoder/login.html',{'form': form, 'mensaje': 'Usuario o contraseña  incorrecata'} )
+        
+        form= AuthenticationForm()
+        return render(request, 'AppCoder/login.html', {'form': form})
+
+
